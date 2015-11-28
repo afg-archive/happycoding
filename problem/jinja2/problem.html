@@ -10,18 +10,19 @@
 {% endblock %}
 
 {% block content %}
-<h1 class="page-header">Problem {{ problem.oj_id }}</h1>
-<div>
+<h1 class="page-header text-center">Problem {{ problem.oj_id }}</h1>
+<div class="text-right">
   {% if not shared %}
   <a href="{{ problem.share_url }}"><button class="btn btn-primary">share your AC to see others' code</button></a>
   {% else %}
   <a href="{{ problem.share_url }}"><button class="btn btn-primary">update shared code</button></a>
   {% endif %}
 </div>
-<p>{{ code_list.count() }} people shared their code on this problem.</p>
-<div>
+<p class="text-right">{{ code_list.count() }} people shared their code on this problem.</p>
+<div class="text-center">
   <iframe src="http://acm.cs.nthu.edu.tw/problem/{{ problem_id }}/" style="width: 80%; height: 400px"></iframe>
 </div>
+<hr>
 {% if shared %}
 <div>
   {% for code in code_list %}

@@ -30,7 +30,7 @@ def login(request):
                     user = User.objects.create_user(username=username)
                 user.backend = 'django.contrib.auth.backends.ModelBackend'
                 login_user(request, user)
-                return redirect('/')
+                return redirect(request.GET.get('next') or '/')
     else:
         form = AuthForm()
     return render(request, 'login.html', {'form': form})
@@ -38,4 +38,4 @@ def login(request):
 
 def logout(request):
     logout_user(request)
-    return redirect('/')
+    return redirect(request.GET.get('next') or '/')
