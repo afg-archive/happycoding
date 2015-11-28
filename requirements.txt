@@ -1,0 +1,5 @@
+django
+django-bootstrap3
+django_fsu
+jinja2
+pygments

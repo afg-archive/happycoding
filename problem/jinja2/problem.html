@@ -1,0 +1,32 @@
+{% set title = problem.oj_id %}
+
+{% extends 'base.html' %}
+
+{% block endhead %}
+{{ super() }}
+<style>
+{% include 'pygments.css' %}
+</style>
+{% endblock %}
+
+{% block content %}
+<h1 class="page-header">Problem {{ problem.oj_id }}</h1>
+<div>
+  {% if not shared %}
+  <a href="{{ problem.share_url }}"><button class="btn btn-primary">share your AC to see others' code</button></a>
+  {% else %}
+  <a href="{{ problem.share_url }}"><button class="btn btn-primary">update shared code</button></a>
+  {% endif %}
+</div>
+<p>{{ code_list.count() }} people shared their code on this problem.</p>
+<div>
+  <iframe src="http://acm.cs.nthu.edu.tw/problem/{{ problem_id }}/" style="width: 80%; height: 400px"></iframe>
+</div>
+{% if shared %}
+<div>
+  {% for code in code_list %}
+  {{ code.text | highlight }}
+  {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

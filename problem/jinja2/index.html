@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block endhead %}
+<style>
+h1 {
+  text-align: center;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>享寫 CODE</h1>
+<div class="well">
+<form class="form-horizontal">
+{{ bootstrap.form(form, layout="horizontal") }}
+{#{ bootstrap.button('Submit') }#}
+</form>
+</form>
+</div>
+{% endblock %}

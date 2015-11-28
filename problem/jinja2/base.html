@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>{% block title %}{{ title }}{% endblock %}</title>
+
+  <link rel="stylesheet" href="http://bootswatch.com/flatly/bootstrap.min.css">
+  <style>{% include 'custom.css' %}</style>
+  {% block endhead %}{% endblock %}
+</head>
+<body>
+  {% block body %}
+  {% block navbar %}
+  {% include 'navbar.html' %}
+  {% endblock navbar %}
+  <div class="container">
+  {% include 'messages.html' %}
+  {% block content %}
+  {% endblock content %}
+  </div>
+  {% endblock body %}
+  {% block endbody %}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  {% endblock endbody %}
+</body>
+</html>
