@@ -1,5 +1,6 @@
 django
 django-bootstrap3
+django-toolbelt
 django_fsu
 jinja2
 pygments
