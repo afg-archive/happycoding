@@ -25,7 +25,15 @@
 {% if shared %}
 <div>
   {% for code in code_list %}
-  {{ code.text | highlight }}
+  <div class="row">
+    <div class="col-sm-1">
+      #{{ code.pk }}
+      <a href="{{ url('problem:code-upvote', pk=code.pk) }}">upvote</a> (+{{ code.upvotes }})
+    </div>
+    <div class="col-sm-11">
+      {{ code.text | highlight }}
+    </div>
+  </div>
   {% endfor %}
 </div>
 {% endif %}

@@ -19,9 +19,18 @@ class Code(models.Model):
     user = models.ForeignKey(User)
     problem = models.ForeignKey(Problem)
     text = models.TextField(default='')
+    upvotes = models.PositiveIntegerField(default=0)
 
 
 class Hint(models.Model):
     user = models.ForeignKey(User)
     problem = models.ForeignKey(Problem)
     text = models.TextField()
+
+
+class Upvote(models.Model):
+    user = models.ForeignKey(User)
+    code = models.ForeignKey(Code)
+
+    class Meta:
+        unique_together = ('user', 'code')

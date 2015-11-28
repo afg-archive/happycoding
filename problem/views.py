@@ -3,7 +3,7 @@ from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django import forms
-from .models import Problem, Code
+from .models import Problem, Code, Upvote
 import oj
 # Create your views here.
 
@@ -45,7 +45,7 @@ def problem(request, oj_id):
         shared = True
     else:
         shared = False
-    code_list = Code.objects.filter(problem=problem)
+    code_list = Code.objects.filter(problem=problem).order_by('-upvotes')
     return render(
         request,
         'problem.html',
@@ -67,3 +67,16 @@ def problem_share(request, oj_id):
     code.save()
     messages.info(request, 'Successfully shared code of problem {}'.format(oj_id))
     return redirect(problem)
+
+
+@login_required
+def code_upvote(request, pk):
+    code = go404(Code, pk=pk)
+    upvote, created = Upvote.objects.get_or_create(user=request.user, code=code)
+    if created:
+        code.upvotes += 1
+        code.save()
+        messages.warning(request, "upvoted #{}".format(pk))
+    else:
+        messages.warning(request, "You've upvoted this already!")
+    return redirect(code.problem)
