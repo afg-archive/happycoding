@@ -61,7 +61,11 @@ def problem(request, oj_id):
 @login_required
 def problem_share(request, oj_id):
     problem = go404(Problem, oj_id=oj_id)
-    thecodeitself = oj.fetch_ac_code(request.user.username, request.session['password'], oj_id)
+    try:
+        thecodeitself = oj.fetch_ac_code(request.user.username, request.session['password'], oj_id)
+    except oj.YouNoAc:
+        messages.warning(request, "You have not AC'd this problem.")
+        return redirect(problem)
     code, created = Code.objects.get_or_create(problem=problem, user=request.user)
     code.text = thecodeitself
     code.save()
