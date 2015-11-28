@@ -10,7 +10,7 @@ import oj
 
 class SearchForm(forms.Form):
 
-    oj_id = forms.IntegerField(label='Online Judge ID', widget=forms.TextInput)
+    oj_id = forms.IntegerField(label='Problem ID', widget=forms.TextInput)
 
 
 def index(request):
