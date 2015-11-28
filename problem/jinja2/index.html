@@ -2,19 +2,26 @@
 
 {% block endhead %}
 <style>
-h1 {
-  text-align: center;
+.title h1{
+	font-size: 100px;
+	margin: 15px auto;
+}
+body{
+	color: #fff;
+	text-align: center;
+    background: url(/static/bg.jpg);
+    width: 100%;
+    height: 100%;    
+}	
+.title{
+	margin-top: 30vh;
 }
 </style>
 {% endblock %}
 
 {% block content %}
-<h1>享寫 CODE</h1>
-<div class="well">
-<form class="form-horizontal">
-{{ bootstrap.form(form, layout="horizontal") }}
-{#{ bootstrap.button('Submit') }#}
+<div class="title"><h1>享寫 CODE</h1></div>
+<form class="form-inline">
+{{ bootstrap.form(form, layout="inline") }}
 </form>
-</form>
-</div>
 {% endblock %}
