@@ -43,6 +43,8 @@ def logout(request):
 
 
 def profile(request, pk):
+    # XXX
+    # PLEASE AWARE PERFORMANCE ISSUES HERE
     user = go404(User, pk=pk)
     user_code = Code.objects.filter(user=user)
     user_hint = Hint.objects.filter(user=user)
