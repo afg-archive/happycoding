@@ -37,7 +37,6 @@
         {% endif %}
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="https://github.com/afg984/happycoding" target="_blank"><img src={{ static("GitHub-Mark-Light-64px.png") }} style="height: 1.3em"> We're on GitHub</a></li>
         {% if request.user.is_authenticated() %}
         <li><a href="{{ url('accounts:profile', pk=request.user.pk) }}">{{ request.user }}</a></li>
         <li><a href="{{ url('accounts:logout') }}?next={{ request.path }}" title="不享寫 Code?">登出</a></li>

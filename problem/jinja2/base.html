@@ -20,7 +20,11 @@
   {% include 'messages.html' %}
   {% block content %}
   {% endblock content %}
+  {% if request.path != '/' %}
+  <hr>
+  <div class="text-right" style="margin-bottom: 1em"><a href="https://github.com/afg984/happycoding" target="_blank"><img src={{ static("GitHub-Mark-64px.png") }} style="height: 1.3em"> We're on GitHub</a></div>
   </div>
+  {% endif %}
   {% endblock body %}
   {% block endbody %}
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
