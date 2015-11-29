@@ -2,7 +2,8 @@ from django import forms
 from django.contrib import messages
 from django.contrib.auth import login as login_user, logout as logout_user
 from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404 as go404
+from problem.models import Code, Hint, Upvote, HintUpvote
 import oj
 
 
@@ -39,3 +40,20 @@ def login(request):
 def logout(request):
     logout_user(request)
     return redirect(request.GET.get('next') or '/')
+
+
+def profile(request, pk):
+    user = go404(User, pk=pk)
+    user_code = Code.objects.filter(user=user)
+    user_hint = Hint.objects.filter(user=user)
+    return render(
+        request,
+        'profile.html',
+        {
+            'user': user,
+            'shares': user_code.count(),
+            'share_upvotes': Upvote.objects.filter(code__in=user_code).count(),
+            'hints': user_hint.count(),
+            'hint_upvotes': HintUpvote.objects.filter(hint__in=user_hint).count()
+        }
+    )

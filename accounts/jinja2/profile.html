@@ -1,0 +1,14 @@
+{% set title = user.username %}
+
+{% extends 'base.html' %}
+
+{% block content %}
+<dl class="dl-horizontal">
+<dt>Username</dt>
+<dd>{{ user }}</dd>
+<dt>Shares</dt>
+<dd>{{ shares }} (+{{ share_upvotes }})</dd>
+<dt>Hints</dt>
+<dd>{{ hints }} (+{{ hint_upvotes }})</dd>
+</dl>
+{% endblock %}

@@ -37,7 +37,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         {% if request.user.is_authenticated() %}
-        <li><a>{{ request.user }}</a></li>
+        <li><a href="{{ url('accounts:profile', pk=request.user.pk) }}">{{ request.user }}</a></li>
         <li><a href="{{ url('accounts:logout') }}?next={{ request.path }}" title="不享寫 Code?">登出</a></li>
         {% else %}
         <li><a href="{{ url('accounts:login') }}">登入</a></li>

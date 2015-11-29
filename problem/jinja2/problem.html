@@ -44,7 +44,7 @@
     <div class="col-sm-11">
       <blockquote>
         <div style="white-space: pre-line">{{ hint.text }}</div>
-        <footer>{{ hint.user }}</footer>
+        <footer><a href="{{ url('accounts:profile', pk=hint.user.pk) }}">{{ hint.user }}</a></footer>
       </blockquote>
     </div>
   </div>
