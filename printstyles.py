@@ -1,4 +1,4 @@
 from pygments.formatters import HtmlFormatter
 
 
-print(HtmlFormatter().get_style_defs())
+print(HtmlFormatter(style='xcode').get_style_defs())
