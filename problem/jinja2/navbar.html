@@ -19,12 +19,21 @@
           </ul>
         </li>
         <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">大一電機 <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">大一電機 <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="/problem/1001">1001</a></li>
             <li><a href="/problem/1002">1002</a></li>
           </ul>
         </li>
+        {% if request.path != "/" %}
+        <li>
+          <div style="margin: 8px 0 0 8px;">
+            <form class="form-inline" action="/">
+              <input class="form-control" id="id_oj_id" name="oj_id" placeholder="Problem ID" required="required" title="" type="text">
+            </form>
+          </div>
+        </li>
+        {% endif %}
       </ul>
       <ul class="nav navbar-nav navbar-right">
         {% if request.user.is_authenticated() %}
