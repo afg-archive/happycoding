@@ -21,21 +21,21 @@
 </div>
 <p class="text-right">{{ code_list.count() }} AC code shared, {{ hint_list.count() }} hints shared.</p>
 <div class="row">
-  <div class="col-sm-11 col-sm-offset-1">
+  <div class="col-sm-1" style="height: 400px; position: relative">
+    <button class="btn btn-primary" role="button" data-toggle="collapse" href="#hintcollapse" aria-expanded="false" aria-controls="hintcollapse" style="position: absolute; bottom: 0">
+    hints ({{ hint_list.count() }})
+    </button>
+  </div>
+  <div class="col-sm-11">
     <iframe src="http://acm.cs.nthu.edu.tw/problem/{{ problem_id }}/" style="width: 100%; height: 400px"></iframe>
   </div>
 </div>
 <hr>
 
 {% if hint_list.exists() %}
-<div class="row">
-  <div class="col-sm-offset-1 col-sm-11">
-    <button class="btn btn-primary" role="button" data-toggle="collapse" href="#hintcollapse" aria-expanded="false" aria-controls="hintcollapse" style="margin-bottom: 5px">
-    Hints ({{ hint_list.count() }})
-    </button>
-  </div>
-  <div class="collapse" id="hintcollapse">
-    {% for hint in hint_list %}
+<div class="collapse" id="hintcollapse">
+  {% for hint in hint_list %}
+  <div class="row">
     <div class="col-sm-1">
       #{{ hint.pk }}<br>
       <a href="{{ url('problem:hint-upvote', pk=hint.pk) }}">upvote</a><br>
@@ -47,8 +47,8 @@
         <footer>{{ hint.user }}</footer>
       </blockquote>
     </div>
-    {% endfor -%}
   </div>
+  {% endfor %}
 </div>
 {% endif %}
 
