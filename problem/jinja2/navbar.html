@@ -9,9 +9,22 @@
       </button>
       <a href="{{ url('index') }}"><span class="navbar-brand" title="享寫 CODE">享寫 CODE</span></a>
     </div>
-
     <div class="collapse navbar-collapse" id="navbar">
       <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">大一資工 <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/problem/10839">10839</a></li>
+            <li><a href="/problem/10840">10840</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">大一電機 <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/problem/10001">10001</a></li>
+            <li><a href="/problem/10002">10002</a></li>
+          </ul>
+        </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         {% if request.user.is_authenticated() %}
