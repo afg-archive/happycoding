@@ -2,8 +2,20 @@
 
 {% extends 'base.html' %}
 
+{% block endhead %}
+{{ super() }}
+<style>
+.title { text-align: center }
+</style>
+{% endblock %}
+
 
 {% block content %}
+<div class="title">
+  <h1>Login</h1>
+  <p>Please use your NTHU OJ account.</p>
+</div>
+<hr>
 <div class="row">
 <div class="col-md-4 col-md-offset-4">
 <form method="POST">
