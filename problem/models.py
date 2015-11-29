@@ -26,6 +26,7 @@ class Hint(models.Model):
     user = models.ForeignKey(User)
     problem = models.ForeignKey(Problem)
     text = models.TextField()
+    upvotes = models.IntegerField(default=0)
 
 
 class Upvote(models.Model):
@@ -34,3 +35,11 @@ class Upvote(models.Model):
 
     class Meta:
         unique_together = ('user', 'code')
+
+
+class HintUpvote(models.Model):
+    user = models.ForeignKey(User)
+    hint = models.ForeignKey(Hint)
+
+    class Meta:
+        unique_together = ('user', 'hint')

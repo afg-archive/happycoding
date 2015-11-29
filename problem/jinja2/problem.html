@@ -16,15 +16,42 @@
   <a href="{{ problem.share_url }}"><button class="btn btn-primary">share your AC to see others' code</button></a>
   {% else %}
   <a href="{{ problem.share_url }}"><button class="btn btn-primary">update shared code</button></a>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#hintmodal">{% if hinted %}Update{% else %}Share{% endif %} hint</button>
   {% endif %}
 </div>
-<p class="text-right">{{ code_list.count() }} people shared their code on this problem.</p>
+<p class="text-right">{{ code_list.count() }} AC code shared, {{ hint_list.count() }} hints shared.</p>
 <div class="row">
   <div class="col-sm-11 col-sm-offset-1">
     <iframe src="http://acm.cs.nthu.edu.tw/problem/{{ problem_id }}/" style="width: 100%; height: 400px"></iframe>
   </div>
 </div>
 <hr>
+
+{% if hint_list.exists() %}
+<div class="row">
+  <div class="col-sm-offset-1 col-sm-11">
+    <button class="btn btn-primary" role="button" data-toggle="collapse" href="#hintcollapse" aria-expanded="false" aria-controls="hintcollapse" style="margin-bottom: 5px">
+    Hints ({{ hint_list.count() }})
+    </button>
+  </div>
+  <div class="collapse" id="hintcollapse">
+    {% for hint in hint_list %}
+    <div class="col-sm-1">
+      #{{ hint.pk }}<br>
+      <a href="{{ url('problem:hint-upvote', pk=hint.pk) }}">upvote</a><br>
+      (+{{ hint.upvotes}})<br>
+    </div>
+    <div class="col-sm-11">
+      <blockquote>
+        <div style="word-wrap: pre">{{ hint.text }}</div>
+        <footer>{{ hint.user }}</footer>
+      </blockquote>
+    </div>
+    {% endfor -%}
+  </div>
+</div>
+{% endif %}
+
 {% if shared %}
 <div>
   {% for code in code_list %}
@@ -40,5 +67,27 @@
   </div>
   {% endfor %}
 </div>
+{% endif %}
+
+{% if shared %}
+<div class="modal" tabindex="-1" role="dialog" id="hintmodal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">{% if hinted %}Update{% else %}Share{% endif %} Hint</h4>
+      </div>
+      <form action="{{ url('problem:share-hint', oj_id=problem.oj_id) }}" method="post">
+        {{ csrf_input }}
+        <div class="modal-body">
+          {{ bootstrap.form(hint_form) }}
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 {% endif %}
 {% endblock %}

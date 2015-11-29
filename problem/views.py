@@ -3,7 +3,7 @@ from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django import forms
-from .models import Problem, Code, Upvote
+from .models import Problem, Code, Upvote, Hint, HintUpvote
 import oj
 # Create your views here.
 
@@ -43,9 +43,12 @@ def problem(request, oj_id):
         Code.objects.filter(problem=problem, user=request.user).exists()
     ):
         shared = True
+        hinted = Hint.objects.filter(problem=problem, user=request.user).exists()
     else:
         shared = False
+        hinted = False
     code_list = Code.objects.filter(problem=problem).order_by('-upvotes')
+    hint_list = Hint.objects.filter(problem=problem).order_by('-upvotes')
     return render(
         request,
         'problem.html',
@@ -53,7 +56,10 @@ def problem(request, oj_id):
             'problem': problem,
             'problem_id': oj_id,
             'shared': shared,
-            'code_list': code_list
+            'hinted': hinted,
+            'code_list': code_list,
+            'hint_list': hint_list,
+            'hint_form': HintForm()
         }
     )
 
@@ -80,7 +86,42 @@ def code_upvote(request, pk):
     if created:
         code.upvotes += 1
         code.save()
-        messages.warning(request, "upvoted #{}".format(pk))
+        messages.info(request, "upvoted #{}".format(pk))
     else:
         messages.warning(request, "You've upvoted this already!")
     return redirect(code.problem)
+
+
+class HintForm(forms.Form):
+
+    hint = forms.CharField(widget=forms.Textarea)
+
+
+@login_required
+@require_POST
+def hint_share(request, oj_id):
+    problem = go404(Problem, oj_id=oj_id)
+    if not Code.objects.filter(problem=problem, user=request.user).exists():
+        messages.warning(request, "You cannot share a hint until you share your AC code")
+        return redirect(problem)
+    form = HintForm(request.POST)
+    if form.is_valid():
+        hint, created = Hint.objects.get_or_create(user=request.user, problem=problem)
+        hint.text = form.cleaned_data['hint']
+        hint.save()
+    else:
+        messages.error(request, 'invalid input.')
+    return redirect(problem)
+
+
+@login_required
+def hint_upvote(request, pk):
+    hint = go404(Hint, pk=pk)
+    upvote, created = HintUpvote.objects.get_or_create(user=request.user, hint=hint)
+    if created:
+        hint.upvotes += 1
+        hint.save()
+        messages.info(request, "upvoted #{}".format(pk))
+    else:
+        messages.warning(request, "You've upvoted this already!")
+    return redirect(hint.problem)
