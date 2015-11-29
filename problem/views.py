@@ -36,6 +36,10 @@ def index(request):
     )
 
 
+def about(request):
+    return render(request, 'about.html')
+
+
 def problem(request, oj_id):
     problem, created = Problem.objects.get_or_create(oj_id=oj_id)
     if (
