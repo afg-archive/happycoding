@@ -31,6 +31,7 @@
   <div class="row">
     <div class="col-sm-1">
       #{{ code.pk }}
+      <br>
       <a href="{{ url('problem:code-upvote', pk=code.pk) }}">upvote</a> (+{{ code.upvotes }})
     </div>
     <div class="col-sm-11">
