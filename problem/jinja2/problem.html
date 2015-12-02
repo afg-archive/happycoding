@@ -5,17 +5,18 @@
 {% block endhead %}
 {{ super() }}
 <style>
-{% include 'pygments.css' %}
+  {% include 'pygments.css' %}
 </style>
 {% endblock %}
 
 {% block content %}
 <h1 class="page-header text-center">Problem {{ problem.oj_id }}</h1>
 <div class="text-right">
+<a href="http://acm.cs.nthu.edu.tw/problem/{{ problem.oj_id }}/" target="blank"><button class="btn btn-primary">View problem in oj</button></a>
   {% if not shared %}
-  <a href="{{ problem.share_url }}"><button class="btn btn-primary">share your AC to see others' code</button></a>
+  <a href="{{ problem.share_url }}"><button class="btn btn-primary">Share your AC to see others' code</button></a>
   {% else %}
-  <a href="{{ problem.share_url }}"><button class="btn btn-primary">update shared code</button></a>
+  <a href="{{ problem.share_url }}"><button class="btn btn-primary">Update shared code</button></a>
   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#hintmodal">{% if hinted %}Update{% else %}Share{% endif %} hint</button>
   {% endif %}
 </div>
@@ -23,7 +24,7 @@
 <div class="row">
   <div class="col-sm-1" style="height: 400px; position: relative">
     <button class="btn btn-primary" role="button" data-toggle="collapse" href="#hintcollapse" aria-expanded="false" aria-controls="hintcollapse" style="position: absolute; bottom: 0">
-    hints ({{ hint_list.count() }})
+      hints ({{ hint_list.count() }})
     </button>
   </div>
   <div class="col-sm-11">
