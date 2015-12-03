@@ -22,6 +22,7 @@ from problem import views
 urlpatterns = [
     url('', views.index, name='index'),
     url('about', views.about, name='about'),
+    url('history', views.history, name='history'),
     url('accounts/', include('accounts.urls', namespace='accounts')),
     url('problem/', include('problem.urls', namespace='problem')),
     # url(r'^admin/', include(admin.site.urls)),
