@@ -48,14 +48,19 @@ def profile(request, pk):
     user = go404(User, pk=pk)
     user_code = Code.objects.filter(user=user)
     user_hint = Hint.objects.filter(user=user)
+    shares = user_code.count()
+    share_upvotes = Upvote.objects.filter(code__in=user_code).count()
+    hints = user_hint.count()
+    hint_upvotes = HintUpvote.objects.filter(hint__in=user_hint).count()
     return render(
         request,
         'profile.html',
         {
             'user': user,
-            'shares': user_code.count(),
-            'share_upvotes': Upvote.objects.filter(code__in=user_code).count(),
-            'hints': user_hint.count(),
-            'hint_upvotes': HintUpvote.objects.filter(hint__in=user_hint).count()
+            'shares': shares,
+            'share_upvotes': share_upvotes,
+            'hints': hints,
+            'hint_upvotes': hint_upvotes,
+            'sum': shares+share_upvotes+hints+hint_upvotes
         }
     )

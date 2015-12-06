@@ -5,22 +5,22 @@
 {% block content %}
 
 <div class="container">
-	<h1>{% if share_upvotes+hint_upvotes >= 0 and 
-		share_upvotes+hint_upvotes <= 20 %}
+	<h1>{% if sum >= 0 and 
+		sum <= 20 %}
 		<img src="http://i.imgur.com/IOPfGR1.png" alt="Bronze" style="width:60px;height:60px;">
-		{% elif share_upvotes+hint_upvotes >= 21 and 
-		share_upvotes+hint_upvotes <= 50 %}
+		{% elif sum >= 21 and 
+		sum <= 50 %}
 		<img src="http://i.imgur.com/5p3oVLb.png" alt="Silver" style="width:60px;height:60px;">
-		{% elif share_upvotes+hint_upvotes >= 51 and 
-		share_upvotes+hint_upvotes <= 90 %}
+		{% elif sum >= 51 and 
+		sum <= 90 %}
 		<img src="http://i.imgur.com/EuC0Ruo.png" alt="Gold" style="width:60px;height:60px;">
-		{% elif share_upvotes+hint_upvotes >= 91 and 
-		share_upvotes+hint_upvotes <= 140 %}
+		{% elif sum >= 91 and 
+		sum <= 140 %}
 		<img src="http://i.imgur.com/WtX1Z3j.png" alt="Platinum" style="width:60px;height:60px;">
-		{% elif share_upvotes+hint_upvotes >= 141 and 
-		share_upvotes+hint_upvotes <= 200 %}
+		{% elif sum >= 141 and 
+		sum <= 200 %}
 		<img src="http://i.imgur.com/VhB2jmf.png" alt="Diamond" style="width:60px;height:60px;">
-		{% elif share_upvotes+hint_upvotes >= 201 %}
+		{% elif sum >= 201 %}
 		<img src="http://i.imgur.com/TgwOyEY.png" alt="Hero" style="width:60px;height:60px;">
 		{% endif %}
 		{{ user }}</h1>
@@ -28,16 +28,20 @@
 		<table class="table">
 			<tbody>
 				<tr>
-					<td>Total shared codes</td>
-					<td>{{ shares }}</td>
-					<td>Total upvoted codes</td>
-					<td>{{ share_upvotes }}</td>
+					<td width="25%">Total shared codes</td>
+					<td width="25%" align="center">{{ shares }}</td>
+					<td width="25%">Total upvoted codes</td>
+					<td width="25%" align="center">{{ share_upvotes }}</td>
 				</tr>
 				<tr>
-					<td>Total shared hints</td>
-					<td>{{ hints }}</td>
-					<td>Total upvoted hints</td>
-					<td>{{ hint_upvotes }}</td>
+					<td width="25%">Total shared hints</td>
+					<td width="25%" align="center">{{ hints }}</td>
+					<td width="25%">Total upvoted hints</td>
+					<td width="25%" align="center">{{ hint_upvotes }}</td>
+				</tr>
+				<tr>
+					<td colspan="3" width="75%">積分=shared codes + upvoted codes + upvoted codes + upvoted hints</td>
+					<td width="25%" align="center">{{ sum }}</td>
 				</tr>
 			</tbody>
 		</table>
@@ -48,7 +52,7 @@
 				<tr>
 					<th>位階</th>
 					<th>位階名稱</th>
-					<th>Total Upvoted</th>
+					<th>積分</th>
 				</tr>
 			</thead>
 			<tbody>
