@@ -59,7 +59,7 @@ def problem(request, oj_id):
     hint_list = Hint.objects.filter(problem=problem).order_by('-upvotes', 'pk')
 
     # pagination
-    paginator = Paginator(code_list, 1) # Show 25 contacts per page
+    paginator = Paginator(code_list, 10) # Show 25 contacts per page
     page = request.GET.get('page')
     try:
         code_list_pagination = paginator.page(page)
