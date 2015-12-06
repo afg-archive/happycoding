@@ -55,8 +55,8 @@ def problem(request, oj_id):
     else:
         shared = False
         hinted = False
-    code_list = Code.objects.filter(problem=problem).order_by('-upvotes')
-    hint_list = Hint.objects.filter(problem=problem).order_by('-upvotes')
+    code_list = Code.objects.filter(problem=problem).order_by('-upvotes', 'pk')
+    hint_list = Hint.objects.filter(problem=problem).order_by('-upvotes', 'pk')
 
     # pagination
     paginator = Paginator(code_list, 10) # Show 25 contacts per page
