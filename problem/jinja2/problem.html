@@ -94,3 +94,16 @@
 </div><!-- /.modal -->
 {% endif %}
 {% endblock %}
+
+{% block endbody %}
+{{ super() }}
+<script src="http://jedfoster.com/js/readmore.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("pre").readmore({
+      collapsedHeight: 500,
+      blockCSS: 'display: block; width: 100%; margin-bottom: 15px;'
+    });
+  });
+</script>
+{% endblock endbody %}
