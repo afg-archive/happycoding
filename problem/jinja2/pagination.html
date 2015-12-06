@@ -1,0 +1,17 @@
+<nav class="text-center">
+  <ul class="pagination">
+    <li>
+      <a href="?page=1" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    {% for i in range(1, code_list_pagination.paginator.num_pages+1) %}
+      <li {% if i==code_list_pagination.number %}class="active"{% endif %}><a href="?page={{ i }}">{{ i }}</a></li>
+    {% endfor %}
+    <li>
+      <a href="?page={{ code_list_pagination.paginator.num_pages }}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>

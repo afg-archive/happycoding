@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django import forms
 from .models import Problem, Code, Upvote, Hint, HintUpvote
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import oj
 # Create your views here.
 
@@ -56,6 +57,17 @@ def problem(request, oj_id):
         hinted = False
     code_list = Code.objects.filter(problem=problem).order_by('-upvotes')
     hint_list = Hint.objects.filter(problem=problem).order_by('-upvotes')
+
+    # pagination
+    paginator = Paginator(code_list, 10) # Show 25 contacts per page
+    page = request.GET.get('page')
+    try:
+        code_list_pagination = paginator.page(page)
+    except PageNotAnInteger:
+        code_list_pagination = paginator.page(1)
+    except EmptyPage:
+        code_list_pagination = paginator.page(paginator.num_pages)
+
     return render(
         request,
         'problem.html',
@@ -64,7 +76,8 @@ def problem(request, oj_id):
             'problem_id': oj_id,
             'shared': shared,
             'hinted': hinted,
-            'code_list': code_list,
+            'code_list_count': code_list.count(),
+            'code_list_pagination': code_list_pagination,
             'hint_list': hint_list,
             'hint_form': HintForm()
         }
